@@ -127,42 +127,6 @@ h1{
   <script>
   
   
-//   const apiKey = 'RGQID3QZDTWSQ7NK';
-// const channelId = '2075342';
-// const field1 = 'field1';
-// const field2 = 'field2';
-// const field3 = 'field3';
-
-// const url = `https://api.thingspeak.com/channels/${channelId}/feeds.json?api_key=${apiKey}&results=1`;
-
-// fetch(url)
-//   .then(response => response.json())
-//   .then(data => {
-//     const field1Value = data.feeds[0][field1];
-//     const field2Value = data.feeds[0][field2];
-//     const field3Value = data.feeds[0][field3];
-//     console.log(`Latest values - ${field1}: ${field1Value}, ${field2}: ${field2Value}, ${field3}: ${field3Value}`);
-//     // Update the div element with the temperature value
-//   document.getElementById("temperature").innerHTML = field1Value;
-
-// // Update the div element with the humidity value
-// document.getElementById("humidity").innerHTML = field2Value;
-
-// // Update the div element with the pulse rate value
-// document.getElementById("pulse-rate").innerHTML = field3Value;
-//   })
-//   .catch(error => console.error(error));
-
-  
-  
-
-
-
-
-
-
-
-
 
 const apiKey = 'RGQID3QZDTWSQ7NK';
 const channelId = '2075342';
@@ -174,18 +138,21 @@ setInterval(() => {
   xhr.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       const response = JSON.parse(this.responseText);
-      const value1 = response.feeds[0].field1;
-      const value2 = response.feeds[0].field2;
-      const value3 = response.feeds[0].field3;
-      console.log(`The latest values are: ${value1}, ${value2}, ${value3}`);
+      const temperature = response.feeds[0].field1;
+      const humidity = response.feeds[0].field2;
+      const pulseRate = response.feeds[0].field3;
+      // console.log(`The latest values are: ${value1}, ${value2}, ${value3}`);
        // Update the div element with the temperature value
-  document.getElementById("temperature").innerHTML = value1;
+  document.getElementById("temperature").innerHTML = temperature;
 
 // Update the div element with the humidity value
-document.getElementById("humidity").innerHTML = value2;
+document.getElementById("humidity").innerHTML = humidity;
 
 // Update the div element with the pulse rate value
-document.getElementById("pulse-rate").innerHTML = value3;
+document.getElementById("pulse-rate").innerHTML = pulseRate;
+
+// Update the sensor values with the normal range colors
+updateSensorValues(temperature, humidity, pulseRate);
     }
   };
 
@@ -193,6 +160,51 @@ document.getElementById("pulse-rate").innerHTML = value3;
   xhr.send();
 }, 10000);
 
+
+// Get references to the temperature, humidity, and pulse rate elements
+const temperatureElement = document.getElementById('temperature');
+const humidityElement = document.getElementById('humidity');
+const pulseRateElement = document.getElementById('pulse-rate');
+
+// Set the normal range values for temperature, humidity, and pulse rate
+const normalRanges = {
+  temperature: {
+    low: 36.5,
+    high: 37.5
+  },
+  humidity: {
+    low: 30,
+    high: 60
+  },
+  pulseRate: {
+    low: 60,
+    high: 100
+  }
+};
+
+// Update the temperature, humidity, and pulse rate values
+function updateSensorValues(temperature, humidity, pulseRate) {
+  // Update the temperature value and color
+  if (temperature < normalRanges.temperature.low || temperature > normalRanges.temperature.high) {
+    temperatureElement.style.color = 'red';
+  } else {
+    temperatureElement.style.color = 'green';
+  }
+
+  // Update the humidity value and color
+  if (humidity < normalRanges.humidity.low || humidity > normalRanges.humidity.high) {
+    humidityElement.style.color = 'red';
+  } else {
+    humidityElement.style.color = 'green';
+  }
+
+  // Update the pulse rate value and color
+  if (pulseRate < normalRanges.pulseRate.low || pulseRate > normalRanges.pulseRate.high) {
+    pulseRateElement.style.color = 'red';
+  } else {
+    pulseRateElement.style.color = 'green';
+  }
+}
   
   
   
