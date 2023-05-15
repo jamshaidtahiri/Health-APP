@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">   -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+<style>
+  
+body {
+  font-family: Arial, sans-serif;
+}
+
+.panel {
+  display: inline-block;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  min-width: 200px;
+  min-height:400px;
+}
+
+.value {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.unit {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.graph {
+  height: 100px;
+  background-color: #f7f7f7;
+}
+
+.explanation {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.explanation strong {
+  font-weight: bold;
+}
+
+.explanation span {
+  font-weight: bold;
+  color: #008000;
+}
+
+h1{
+  text-align: center;
+}
+
+.info{
+  /* text-align: center; */
+
+}
+/* .buttons{
+  align-content: center;
+} */
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* added to wrap buttons to new line */
+  gap: 10px;
+  margin: auto; /* added to center the container */
+  width: fit-content; /* added to shrink container to fit content */
+}
+
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  /* display: block; */
+  margin: 10px auto;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+button:focus {
+  outline: none;
+}
+
+#button1 {
+  background-color: #ff0000;
+}
+
+#button2 {
+  background-color: #0000ff;
+}
+
+#button3 {
+  background-color: #0084ff;
+}
+
+#button4 {
+  background-color: #00ff00;
+}
+
+.graph {
+  margin-top: 20px;
+  height: 260px;
+  width: 450px;
+  position: relative;
+}
+
+.graph iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+}
+
+
+#notificationBanner {
+  display: none;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+
+</style>
+  
+<title>Smart Health Monitoring</title>
+</head>
+<body>
+  <div id="notificationBanner"></div>
+  <!-- <div>
+    <h2>Temperature: <span id="temperature"></span></h2>
+    <h2>Humidity: <span id="humidity"></span></h2>
+    <h2>Body Temperature: <span id="body-temperature"></span></h2>
+    <h2>BPM: <span id="bpm"></span></h2>
+    <h2>SPO2: <span id="spo2"></span></h2>
+  </div> -->
+
+
+
+
+
+
+  <h1>Smart Health Monitoring</h1>
+
+  
+  <div class="button-container">
+    <div class="info">
+    <h2>Patient Information</h2>
+    <p><strong>Name:</strong> Patient 1 </p>
+    <p><strong>Disease:</strong> Covid</p>
+    <p><strong>Number of devices:</strong> 3</p>
+  </div>
+</div>
+  <div class="button-container">
+	<div class="panel">
+  <div class="icon">&#x1F;</div>
+    <div class="value" id="temperature"></div>
+    <div class="unit">°C</div>
+    <div class="graph">
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2075342/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+    </div>
+    <div class="explanation">
+      <strong>Temperature</strong><br>
+      Ideal range: <span>36.5°C - 37.5°C</span>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="icon">&#x1F4A7;</div>
+    <div class="value" id="humidity"></div>
+    <div class="unit">%</div>
+    <div class="graph">
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2075342/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+    </div>
+    <div class="explanation">
+      <strong>Humidity</strong><br>
+      Ideal range: <span>30% - 60%</span>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <div class="icon">&#x1F321;</div>
+    <div class="value" id="body-temperature"></div>
+    <div class="unit">°C</div>
+    <div class="graph">
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2075342/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line"></iframe>
+
+    </div>
+    <div class="explanation">
+      <strong>Body Temperature</strong><br>
+      Ideal range: <span>36.1°C - 37.2°C</span>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="icon">&#x2764;</div>
+    <div class="value" id="bpm"></div>
+    <div class="unit">bpm</div>
+    <div class="graph">
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2075342/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+    </div>
+    <div class="explanation">
+      <strong>Pulse Rate</strong><br>
+      Ideal range: <span>60 bpm - 100 bpm</span>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="icon">&#x1F4A1;</div>
+    <div class="value" id="spo2"></div>
+    <div class="unit">%</div>
+    <div class="graph">
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2075342/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+    </div>
+    <div class="explanation" style="clear: both;">
+      <strong>SpO2</strong><br>
+      Ideal range: <span>95% - 100%</span>
+    </div>
+  </div>
+  </div>
+
+  <!-- <div class="button-container">
+    <br><button id="button1" onclick="sendToThingSpeak(1)">DHT 11</button>
+	<button id="button2" onclick="sendToThingSpeak(2)">DS18B20</button>
+	<button id="button3" onclick="sendToThingSpeak(3)">BPM</button>
+  <button id="button4" onclick="sendToThingSpeak(4)">SPO2</button>
+</div> -->
+
+	
+	
+
+  <!-- <i class="fas fa-heart"></i> -->
+
+  
+
+</body>
+  
+  
+  <script>
+  const apiKey = 'RGQID3QZDTWSQ7NK';
+const channelId = '2075342';
+
+setInterval(() => {
+  const xhr = new XMLHttpRequest();
+  const url = `https://api.thingspeak.com/channels/${channelId}/fields/1,2,3,4,5?api_key=${apiKey}&results=1`;
+
+  xhr.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      const response = JSON.parse(this.responseText);
+      const value1 = response.feeds[0].field1;
+      const value2 = response.feeds[0].field2;
+      const value3 = response.feeds[0].field3;
+      const value4 = response.feeds[0].field4;
+      const value5 = response.feeds[0].field5;
+      console.log(`The latest values are: ${value1}, ${value2}, ${value3},${value4}`);
+       // Update the div element with the temperature value
+  document.getElementById("temperature").innerHTML = value1;
+
+// Update the div element with the humidity value
+document.getElementById("humidity").innerHTML = value2;
+
+// Update the div element with the pulse rate value
+document.getElementById("body-temperature").innerHTML = value3;
+
+// Update the div element with the humidity value
+document.getElementById("bpm").innerHTML = value4;
+
+// Update the div element with the pulse rate value
+document.getElementById("spo2").innerHTML = value5;
+
+updateSensorValues(value1,value2,value3,value4,value5);
+    }
+  };
+
+  xhr.open('GET', url, true);
+  xhr.send();
+}, 10000);
+
+  
+  // Get references to the temperature, humidity, and pulse rate elements
+const temperatureElement = document.getElementById('temperature');
+const humidityElement = document.getElementById('humidity');
+const body_temperatureElement = document.getElementById('body-temperature');
+const bpmElement = document.getElementById('bpm');
+const spo2Element = document.getElementById('spo2');
+
+
+// Set the normal range values for temperature, humidity, and pulse rate
+const normalRanges = {
+  temperature: {
+    low: 36.5,
+    high: 37.5
+  },
+  humidity: {
+    low: 30,
+    high: 60
+  },
+  body_temperature: {
+    low: 36,
+    high:37
+  },
+  bpm: {
+    low: 60,
+    high: 100
+  },
+  spo2: {
+    low: 95,
+    high: 100
+  }
+};
+
+// Update the temperature, humidity, and pulse rate values
+function updateSensorValues(temperature, humidity, body_temperature,bpm,spo2) {
+  let exceededLimits = [];
+  // Update the temperature value and color
+  if (temperature < normalRanges.temperature.low || temperature > normalRanges.temperature.high) {
+    temperatureElement.style.color = 'red';
+    exceededLimits.push(`Room Temperature is outside limit ${normalRanges.temperature.low} --- ${normalRanges.temperature.high}`);
+  } else {
+    temperatureElement.style.color = 'green';
+    hideBannerNotification();
+  }
+
+  // Update the humidity value and color
+  if (humidity < normalRanges.humidity.low || humidity > normalRanges.humidity.high) {
+    humidityElement.style.color = 'red';
+    exceededLimits.push(`Humidity is outside limit ${normalRanges.humidity.low} --- ${normalRanges.humidity.high}`);
+  } else {
+    humidityElement.style.color = 'green';
+        hideBannerNotification();
+
+  }
+  if (body_temperature < normalRanges.body_temperature.low || body_temperature > normalRanges.body_temperature.high) {
+    body_temperatureElement.style.color = 'red';
+    exceededLimits.push(`Body Temperature is outside limit ${normalRanges.body_temperature.low} --- ${normalRanges.body_temperature.high}`);
+  } else {
+    body_temperatureElement.style.color = 'green';
+        hideBannerNotification();
+
+  }
+
+  // Update the pulse rate value and color
+  if (bpm < normalRanges.bpm.low || bpm > normalRanges.bpm.high) {
+    bpmElement.style.color = 'red';
+    exceededLimits.push(`Beat Per Minute (Bpm) is outside limit ${normalRanges.bpm.low} --- ${normalRanges.bpm.high}`);
+  } else {
+    bpmElement.style.color = 'green';
+        hideBannerNotification();
+
+  }
+  if (spo2 < normalRanges.spo2.low || spo2 > normalRanges.spo2.high) {
+    spo2Element.style.color = 'red';
+    exceededLimits.push(`SPO2 is outside limit ${normalRanges.spo2.low} --- ${normalRanges.spo2.high}`);
+  } else {
+    spo2Element.style.color = 'green';
+        hideBannerNotification();
+
+  }
+  if (exceededLimits.length > 0) {
+showBannerNotification(exceededLimits);
+} else {
+hideBannerNotification();
+}
+}
+
+  
+  // 
+
+  // // Replace YOUR_API_KEY with your actual ThingSpeak API Key
+  // const API_KEY = '8OEGXAD2R17HFV78';
+		
+	// 	function sendToThingSpeak(value) {
+	// 		// Replace YOUR_FIELD_NUMBER with the field number you want to update on ThingSpeak
+	// 		// const FIELD_NUMBER = 'YOUR_FIELD_NUMBER';
+	// 		const url = `https://api.thingspeak.com/update?api_key=${API_KEY}&field1=${value}`;
+	// 		fetch(url)
+	// 			.then(response => response.json())
+	// 			.then(data => console.log(data))
+	// 			.catch(error => console.error(error));
+	// 	}
+
+  
+
+
+
+
+
+    // Example function to show the banner notification
+function showBannerNotification(message) {
+  var notificationBanner = document.getElementById('notificationBanner');
+  // notificationBanner.textContent = message;
+  // var paragraphs = message.map(msg => `<p>${msg}</p>`);
+  // notificationBanner.innerHTML = paragraphs.join('');
+  var paragraphs = '';
+  for (var i = 0; i < message.length; i++) {
+    paragraphs += '<p>' + message[i] + '</p>';
+  }
+  notificationBanner.innerHTML = paragraphs;
+
+  notificationBanner.style.display = 'block';
+}
+
+// Example function to hide the banner notification
+function hideBannerNotification() {
+  var notificationBanner = document.getElementById('notificationBanner');
+  notificationBanner.style.display = 'none';
+}
+
+// Example function to monitor sensor readings and display notifications
+// function monitorSensorReadings() {
+//   // Replace this logic with your actual sensor monitoring code
+//   var temperature = getTemperature(); // Example function to get temperature value
+//   var heartRate = getHeartRate(); // Example function to get heart rate value
+
+//   if (temperature > temperatureLimit) {
+//     exceededLimits.push('Temperature exceeds the limit!');
+//   } else if (heartRate > heartRateLimit) {
+//     exceededLimits.push('Heart rate exceeds the limit!');
+//   } else {
+//     hideBannerNotification();
+//   }
+// }
+
+// Usage: Call this function every 5 seconds or as per your desired interval
+// setInterval(monitorSensorReadings, 5000);
+
+ 
+    </script>
+
+
+
+
+<!-- //   const apiKey = 'RGQID3QZDTWSQ7NK';
+// const channelId = '2075342';
+// const field1 = 'field1';
+// const field2 = 'field2';
+// const field3 = 'field3';
+
+// const url = `https://api.thingspeak.com/channels/${channelId}/feeds.json?api_key=${apiKey}&results=1`;
+
+// fetch(url)
+//   .then(response => response.json())
+//   .then(data => {
+//     const field1Value = data.feeds[0][field1];
+//     const field2Value = data.feeds[0][field2];
+//     const field3Value = data.feeds[0][field3];
+//     console.log(`Latest values - ${field1}: ${field1Value}, ${field2}: ${field2Value}, ${field3}: ${field3Value}`);
+//     // Update the div element with the temperature value
+//   document.getElementById("temperature").innerHTML = field1Value;
+
+// // Update the div element with the humidity value
+// document.getElementById("humidity").innerHTML = field2Value;
+
+// // Update the div element with the pulse rate value
+// document.getElementById("pulse-rate").innerHTML = field3Value;
+//   })
+//   .catch(error => console.error(error)); -->
+
+
+
+
+
+
+  
+  
